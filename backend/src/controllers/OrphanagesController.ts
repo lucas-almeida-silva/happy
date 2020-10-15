@@ -36,12 +36,14 @@ export default {
       about,
       instructions,
       opening_hours,
-      open_on_weekends
+      open_on_weekends,
+      whatsapp
     } = request.body;
   
     const orpahagesRepository = getRepository(Orphanage);
 
     const requestImages = request.files as Express.Multer.File[];
+
     const images = requestImages.map(image => {
       return { path: image.filename }
     });
@@ -53,7 +55,8 @@ export default {
       about,
       instructions,
       opening_hours,
-      open_on_weekends,
+      open_on_weekends: open_on_weekends === "true",
+      whatsapp,
       images
     };
 
@@ -65,6 +68,7 @@ export default {
       instructions: Yup.string().required(),
       opening_hours: Yup.string().required(),
       open_on_weekends: Yup.boolean().required(),
+      whatsapp: Yup.string().required().min(11).max(11),
       images: Yup.array(
         Yup.object().shape({
           path: Yup.string().required()
