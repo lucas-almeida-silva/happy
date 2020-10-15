@@ -3,7 +3,7 @@ import { useHistory } from "react-router-dom";
 import { Map, Marker, TileLayer } from 'react-leaflet'
 import { LeafletMouseEvent } from 'leaflet';
 
-import { FiPlus } from "react-icons/fi";
+import { FiPlus, FiX } from "react-icons/fi";
 import { toast, ToastContainer } from "react-toastify";
 
 import SideBar from '../components/SideBar';
@@ -41,13 +41,35 @@ export default function CreateOrphanage() {
       
     const selectedImages = Array.from(event.target.files);
 
-    setImages(selectedImages);
+    setImages([
+      ...images, 
+      ...selectedImages
+    ]);
 
     const selectedImagesPreview = selectedImages.map(image => {
       return URL.createObjectURL(image);
     });
 
-    setPreviewImages(selectedImagesPreview);
+    setPreviewImages([
+      ...previewImages,
+      ...selectedImagesPreview
+    ]);
+  }
+
+  function handleRemoveImage(position: number) {
+    const previewSelectedImages = previewImages.filter((previewImage, index) => {
+      if(index !== position) {
+        return previewImage;
+      }
+    })
+    setPreviewImages(previewSelectedImages);
+
+    const selectedImages = images.filter((selectedImage, index) => {
+      if(index !== position) {
+        return selectedImage;
+      }
+    })
+    setImages(selectedImages);
   }
 
   async function handleSubmit(event: FormEvent) {
@@ -79,8 +101,6 @@ export default function CreateOrphanage() {
     } catch(err) {
       toast.error('Ocorreu um erro ao salvar os dados do orfanato.');
     }
-
-    
   }
 
   return (
@@ -132,7 +152,7 @@ export default function CreateOrphanage() {
             </div>
 
             <div className="input-block">
-              <label htmlFor="whatsapp">Whatsapp</label>
+              <label htmlFor="whatsapp">Número de Whatsapp</label>
               <input 
                 id="whatsapp"
                 value={whatsapp} 
@@ -143,8 +163,20 @@ export default function CreateOrphanage() {
               <label htmlFor="images">Fotos</label>
 
               <div className="images-container">
-                {previewImages.map(image => {
-                  return <img key={image} src={image} alt={name} />
+                {previewImages.map((image, index) => {
+                  return (
+                    <div key={image} className="selected-image">
+                      <img src={image} alt={name} />
+                      <button 
+                        type="button" 
+                        className="remove-image"
+                        onClick={() => handleRemoveImage(index)}
+                      >
+                        <FiX size={24}/>
+                      </button>
+                    </div>
+                    
+                  ) 
                 })}
                 <label htmlFor="image[]" className="new-image">
                   <FiPlus size={24} color="#15b6d6" />
