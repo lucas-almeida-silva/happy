@@ -18,19 +18,19 @@ Happy is a platform to facilitate the search for nearby orphanages and obtain in
 
 ### 📦 API
 
-  - Node.js
-  - Typescript
+- [Node.js](https://nodejs.org/en/)
+- [TypeScript](https://www.typescriptlang.org/)
 
 ### :computer: Web
 
-  - React.js
-  - Typescript
-  - Leaflet
-  - Mapbox
+- [React.js](https://pt-br.reactjs.org/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [Leaflet](https://leafletjs.com/)
+- [Mapbox](https://www.mapbox.com/)
 
 ### :iphone: Mobile
 
-  - React Native
+- [React Native](https://reactnative.dev/)
 
 # :rocket: Features
   
