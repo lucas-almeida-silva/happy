@@ -31,6 +31,7 @@ Happy is a platform to facilitate the search for nearby orphanages and obtain in
 ### :iphone: Mobile
 
 - [React Native](https://reactnative.dev/)
+- [TypeScript](https://www.typescriptlang.org/)
 
 # :rocket: Features
   
